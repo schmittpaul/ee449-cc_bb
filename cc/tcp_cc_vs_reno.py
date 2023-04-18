@@ -387,7 +387,7 @@ def tcp_tests(algs, delays, iperf_runtime, iperf_delayed_start):
             print("*** Starting iperf client h3...")
             popens[h3] = h3.popen('iperf -c {0} -p 5001 -i 1 -w 16m -M 1460 -N -Z {1} -t {2} -y C > \
                                    iperf_{1}_{3}_{4}ms.txt'
-                                  .format(h4.IP(), alg, iperf_runtime, 'h3-h4', delay), shell=True)
+                                  .format(h4.IP(), 'reno', iperf_runtime, 'h3-h4', delay), shell=True)
 
             # Wait for clients to finish sending data
             print("*** Waiting {0}sec for iperf clients to finish...".format(iperf_runtime))
@@ -421,7 +421,7 @@ def tcp_tests(algs, delays, iperf_runtime, iperf_delayed_start):
 if __name__ == '__main__':
     # Parse command-line arguments
     parser = argparse.ArgumentParser(description='TCP Congestion Control tests in a dumbbell topology.')
-    parser.add_argument('-a', '--algorithms', nargs='+', default=['reno', 'cubic', 'vegas'],
+    parser.add_argument('-a', '--algorithms', nargs='+', default=['cubic', 'vegas'],
                         help='List TCP Congestion Control algorithms to test.')
     parser.add_argument('-d', '--delays', nargs='+', type=int, default=[21, 81, 162],
                         help='List of backbone router one-way propagation delays to test.')
